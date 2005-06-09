@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<message_catalog package_key="ae-portlet" package_version="0.2d1" locale="en_US" charset="ISO-8859-1">
+
+  <msg key="ae_admin">Course Evaluation Admin</msg>
+  <msg key="error_one_ae">There should be only one instance of Anon Eval for admin purpose</msg>
+  <msg key="view_results">Results</msg>
+</message_catalog>
