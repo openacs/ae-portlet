@@ -17,7 +17,7 @@ ad_proc -public apm::ae_portlet::after_install {} {
     ae_admin_portlet::after_install
 }
 
-ad_proc -public apm::anon-eval_portlet::before_uninstall {} {
+ad_proc -public apm::ae_portlet::before_uninstall {} {
     Anon-Eval Portlet package uninstall proc
 } {
     
