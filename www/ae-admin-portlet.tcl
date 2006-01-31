@@ -33,10 +33,21 @@ if { $package_admin_p == 0} {
 
 #list all assessments
 
-db_multirow -extend { export permissions admin_request} assessments $m_name {} {
+db_multirow -extend { export permissions admin_request status edit_url sessions_url cvs_url status_url } assessments $m_name {} {
     set export "[_ assessment.Export]"
     set permissions "[_ assessment.permissions]"
     set admin_request "[_ assessment.Request] [_ assessment.Administration]"
+
+    if { $live_revision eq "" } {
+	set status "[_ ae-portlet.Publish]"
+    } else {
+	set status "[_ ae-portlet.Unpublish]"
+    }
+
+    set edit_url [export_vars -base anon-eval/asm-admin/assessment-form {assessment_id}]
+    set sessions_url [export_vars -base anon-eval/sessions {assessment_id}]
+    set cvs_url [export_vars -base anon-eval/asm-admin/results-export {assessment_id}]
+    set status_url [export_vars -base anon-eval/asm-admin/toggle-status {assessment_id {return_url [ad_return_url]}}]
 }
 
 list::create \
@@ -49,12 +60,14 @@ list::create \
 	    display_template { <center><a href=[export_vars -base anon-eval/asm-admin/one-a { assessment_id }]>@assessments.title@</a></center>}
 	}
 	edit {
-	    display_template {<a href="[export_vars -base anon-eval/asm-admin/assessment-form {assessment_id}]"><img border=0 src="/resources/Edit16.gif"></a>}
+	    display_template {<a href="@assessments.edit_url;noquote@"><img border=0 src="/resources/Edit16.gif"></a>}
 	}
 	view_results  {
 	    label {[_ ae-portlet.view_results]}
-	    display_template {<a href=[export_vars -base anon-eval/sessions {assessment_id}]>#assessment.All#</a> |
-		<a href=[export_vars -base anon-eval/asm-admin/results-export {assessment_id}]>#assessment.CSV_file#</a></td>}
+	    display_template {<a href="@assessments.sessions_url;noquote@">#assessment.All#</a> |
+		<a href="@assessments.cvs_url;noquote@">#assessment.CSV_file#</a> |
+		<a href="@assessments.status_url;noquote@">@assessments.status@</a></td>}
+	    html { nowrap }
 	}
     } 
 

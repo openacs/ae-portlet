@@ -14,7 +14,7 @@
 	from as_assessments a, cr_revisions cr, cr_items ci, cr_folders cf,
 	     site_nodes sa, site_nodes sc, apm_packages p
 	where a.assessment_id = cr.revision_id
-	and cr.revision_id = ci.latest_revision
+	and cr.revision_id = ci.live_revision
 	and ci.parent_id = cf.folder_id
 	and cf.package_id in ([join $list_of_package_ids ", "])
 	and sa.object_id = cf.package_id
