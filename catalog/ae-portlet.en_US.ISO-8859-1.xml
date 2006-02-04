@@ -9,6 +9,7 @@
   <msg key="error_one_ae">There should be only one instance of Anon Eval for admin purpose</msg>
   <msg key="Finish_Evaluation">Finish Evaluation</msg>
   <msg key="lt_No_evaluations_presen">No evaluations presently available</msg>
+  <msg key="lt_No_unpublished_evalua">No unpublished evaluations</msg>
   <msg key="lt_NOTE_This_is_an_admin">#NOTE: This is an admin only section for unpublished evaluations</msg>
   <msg key="Publish">Publish</msg>
   <msg key="Results">Results</msg>
