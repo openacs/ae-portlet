@@ -7,13 +7,13 @@
     <initial-install-p>f</initial-install-p>
     <singleton-p>t</singleton-p>
     
-    <version name="0.2d2" url="http://openacs.org/repository/download/apm/ae-portlet-0.2d2.apm">
+    <version name="0.2d3" url="http://openacs.org/repository/download/apm/ae-portlet-0.2d3.apm">
         <owner url="mailto:annyflores@viaro.net">Anny Flores</owner>
         <summary>Anonymous course evaluations portlet</summary>
         <release-date>2006-01-31</release-date>
         <maturity>0</maturity>
 
-        <provides url="ae-portlet" version="0.2d2"/>
+        <provides url="ae-portlet" version="0.2d3"/>
         <requires url="assessment" version="0.1d"/>
 
         <callbacks>

@@ -1,15 +1,13 @@
-<if @assessments:rowcount@ gt 0 or @sessions:rowcount@ gt 0>
-  <if @shaded_p@ false>
-    <if @assessments:rowcount@ gt 0>
-      <listtemplate name="assessments"></listtemplate>
-    </if>
-    <if @sessions:rowcount@ gt 0>
-      <h4>#assessment.answered_assessments#</h4>
-      <listtemplate name="sessions"></listtemplate>
-    </if>
+<if @shaded_p@ false>
+  <listtemplate name="assessments"></listtemplate>
+  <if @package_admin_p@ and @community_id@ ne "">
+    <p />
+    <br />
+    #ae-portlet.lt_NOTE_This_is_an_admin#
+    <p />
+    <listtemplate name="unpublished_assessments"></listtemplate>
   </if>
 </if>
 <else>
-  &nbsp;  
+  &nbsp;
 </else>
-

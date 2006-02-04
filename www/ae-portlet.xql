@@ -5,8 +5,12 @@
 	<querytext>
 	select cr.item_id as assessment_id, cr.title, cr.description,
 	       cf.package_id, p.instance_name as community_name,
-	       sc.node_id as comm_node_id, sa.node_id as as_node_id
-	from as_assessments a, cr_revisions cr, cr_items ci, cr_folders cf,
+	       sc.node_id as comm_node_id, sa.node_id as as_node_id,
+	       s.session_id, s.completed_datetime, a.anonymous_p, 
+	       a.assessment_id as assessment_rev_id
+	from as_assessments a left join as_sessions s on (a.assessment_id = s.assessment_id
+							  and s.subject_id = :user_id), 
+	     cr_revisions cr, cr_items ci, cr_folders cf,
 	     site_nodes sa, site_nodes sc, apm_packages p
 	where a.assessment_id = cr.revision_id
 	and cr.revision_id = ci.latest_revision
@@ -15,15 +19,9 @@
 	and sa.object_id = cf.package_id
 	and sc.node_id = sa.parent_id
 	and p.package_id = sc.object_id
-	and exists (select 1
-		from as_sessions s
-		where s.assessment_id = a.assessment_id
-		and s.subject_id = :user_id
-		and s.completed_datetime is not null)
+	$status_clause	
 	order by lower(p.instance_name), lower(cr.title)
 	</querytext>
 </fullquery>
-
-
-	
+  
 </queryset>
