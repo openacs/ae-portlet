@@ -37,6 +37,7 @@ template::list::create \
     -page_flush_p 1 \
     -html { width 100% } \
     -pass_properties { package_admin_p } \
+    -no_data "#ae-portlet.lt_No_evaluations_presen#" \
     -elements {
 	title {
 	    label ""
@@ -95,6 +96,7 @@ if { $community_id ne "" } {
 	    -html { width 100% } \
 	    -pass_properties { package_admin_p } \
 	    -actions [list "#assessment.New_Assessment#" ${base_url}asm-admin/assessment-form "#assessment.New_Assessment#"] \
+	    -no_data "<#_ No unpublished evaluations#>" \
 	    -elements {
 		title {
 		    label ""
