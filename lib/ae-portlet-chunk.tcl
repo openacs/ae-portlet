@@ -98,7 +98,7 @@ if { $community_id ne "" } {
 	    -page_flush_p 1 \
 	    -html { width 100% } \
 	    -pass_properties { package_admin_p } \
-	    -actions [list "#assessment.New_Assessment#" ${base_url}asm-admin/assessment-form "#assessment.New_Assessment#"] \
+	    -actions [list "[_ ae-portlet.New_Evaluation]" ${base_url}asm-admin/assessment-form "[_ ae-portlet.New_Evaluation]"] \
 	    -no_data "[_ ae-portlet.lt_No_unpublished_evalua]" \
 	    -elements {
 		title {

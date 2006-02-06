@@ -23,7 +23,7 @@ set package_id [lindex $list_of_package_ids 0]
 set url [lindex [site_node::get_url_from_object_id -object_id $package_id] 0]
 set user_id [ad_conn user_id]
 set package_admin_p [permission::permission_p -party_id $user_id -object_id $package_id -privilege "admin"]
-set actions "<a class=button href=[export_vars -base anon-eval/asm-admin/assessment-form]>[_ assessment.New_Assessment]</a>"
+set actions "<a class=button href=[export_vars -base anon-eval/asm-admin/assessment-form]>[_ ae-portlet.New_Evaluation]</a>"
 
 if { $package_admin_p == 0} {
     set m_name "get_all_assessments_admin"

@@ -11,6 +11,7 @@
   <msg key="lt_No_evaluations_presen">No evaluations presently available</msg>
   <msg key="lt_No_unpublished_evalua">No unpublished evaluations</msg>
   <msg key="lt_NOTE_This_is_an_admin">#NOTE: This is an admin only section for unpublished evaluations</msg>
+  <msg key="New_Evaluation">New Evaluation</msg>
   <msg key="Publish">Publish</msg>
   <msg key="Results">Results</msg>
   <msg key="Take_Evaluation">Take Evaluation</msg>
