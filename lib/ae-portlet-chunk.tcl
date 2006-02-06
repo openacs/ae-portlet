@@ -40,7 +40,6 @@ template::list::create \
     -multirow assessments \
     -page_flush_p 1 \
     -html { width 100% } \
-    -pass_properties { package_admin_p } \
     -no_data "#ae-portlet.lt_No_evaluations_presen#" \
     -elements {
 	title {
@@ -61,9 +60,9 @@ template::list::create \
 		<else>
 		<a href="@assessments.assessment_url;noquote@">#ae-portlet.Take_Evaluation#</a>
 		</else>		    
-		<br />#ae-portlet.Anonymous# <if @package_admin_p@><if @assessments.anonymous_p@ eq "f"><a href="@assessments.anonymous_url;noquote@">#assessment.yes#</a>/<b>#assessment.no#</b></if><else><b>#assessment.yes#</b>/<a href="@assessments.anonymous_url;noquote@">#assessment.no#</a></else>
+		<br />#ae-portlet.Anonymous# <if @assessments.package_admin_p@><if @assessments.anonymous_p@ eq "f"><a href="@assessments.anonymous_url;noquote@">#assessment.yes#</a>/<b>#assessment.no#</b></if><else><b>#assessment.yes#</b>/<a href="@assessments.anonymous_url;noquote@">#assessment.no#</a></else>
 		</if><else><if @assessments.anonymous_p@ eq "f"><b>#assessment.no#</b></if><else><b>#assessment.yes#</b></else></else>
-		<if @package_admin_p@>
+		<if @assessments.package_admin_p@>
 		| <a href="@assessments.status_url;noquote@">#ae-portlet.Unpublish#</a> | <a href="@assessments.edit_url;noquote@">#ae-portlet.Edit_Evaluation#</a> | <a href="@assessments.results_url;noquote@">#ae-portlet.Results#</a>
 		</if>
 	    }
@@ -72,7 +71,7 @@ template::list::create \
     -groupby $groupby_list
 
 set status_clause "and not ci.live_revision is null"
-db_multirow -extend { edit_response_url view_url edit_url assessment_url status_url anonymous_url edit_url results_url } assessments answered_assessments {} {
+db_multirow -extend { edit_response_url view_url edit_url assessment_url status_url anonymous_url edit_url results_url package_admin_p } assessments answered_assessments {} {
 
     set base_url [site_node::get_url_from_object_id -object_id $package_id]
     set package_admin_p [permission::permission_p -party_id $user_id -object_id $package_id -privilege "admin"]
