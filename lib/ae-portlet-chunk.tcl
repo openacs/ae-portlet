@@ -90,7 +90,7 @@ if { $community_id ne "" } {
     set package_id [dotlrn_community::get_package_id $community_id]
     set package_admin_p [permission::permission_p -party_id $user_id -object_id $package_id -privilege "admin"]
     if { $package_admin_p } {
-	set base_url "[site_node::get_url_from_object_id -object_id $package_id]anon-eval"
+	set base_url "[site_node::get_url_from_object_id -object_id $package_id]anon-eval/"
 
 	template::list::create \
 	    -name unpublished_assessments \
