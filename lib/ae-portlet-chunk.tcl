@@ -44,21 +44,42 @@ template::list::create \
     -elements {
 	title {
 	    label ""
-	    link_url_col assessment_url
+	    display_template {
+		<if @assessments.session_id@ ne "" or @assessments.over_p@>
+		@assessments.title@
+		</if>
+		<else>
+		<a href="@assessments.assessment_url;noquote@">@assessments.title@</a>
+		</else>		    		
+	    }
 	}
 	actions {
 	    label ""
 	    display_template {
 		<if @assessments.session_id@ ne "">
+
 		<if @assessments.completed_datetime@ eq "">
 		<a href="@assessments.assessment_url;noquote@">#ae-portlet.Finish_Evaluation#</a>
 		</if>
 		<else>
 		<a href="@assessments.edit_response_url;noquote@"><img border=0 src=/resources/Edit16.gif> #ae-portlet.Edit_Your_Response#</a> | <a href="@assessments.view_url;noquote@"><img border=0 src=/resources/Zoom16.gif> #ae-portlet.View_Your_Response#</a>
 		</else>
+
+		</if>
+		<else>
+		
+		<if @assessments.package_admin_p@ ne 1>
+		<if @assessments.over_p@>
+		[_ ae-portlet.lt_Sorry_this_evaluation]
 		</if>
 		<else>
 		<a href="@assessments.assessment_url;noquote@">#ae-portlet.Take_Evaluation#</a>
+		</else>
+		</if>
+		<else>
+		<a href="@assessments.assessment_url;noquote@">[_ ae-portlet.Test_Evaluation]</a>
+		</else>
+
 		</else>		    
 		<br />#ae-portlet.Anonymous# <if @assessments.package_admin_p@><if @assessments.anonymous_p@ eq "f"><a href="@assessments.anonymous_url;noquote@">#assessment.yes#</a>/<b>#assessment.no#</b></if><else><b>#assessment.yes#</b>/<a href="@assessments.anonymous_url;noquote@">#assessment.no#</a></else>
 		</if><else><if @assessments.anonymous_p@ eq "f"><b>#assessment.no#</b></if><else><b>#assessment.yes#</b></else></else>
@@ -71,7 +92,7 @@ template::list::create \
     -groupby $groupby_list
 
 set status_clause "and not ci.live_revision is null"
-db_multirow -extend { edit_response_url view_url edit_url assessment_url status_url anonymous_url edit_url results_url package_admin_p } assessments answered_assessments {} {
+db_multirow -extend { edit_response_url view_url edit_url assessment_url status_url anonymous_url edit_url results_url package_admin_p over_p } assessments answered_assessments {} {
 
     set base_url [site_node::get_url_from_object_id -object_id $package_id]
     set package_admin_p [permission::permission_p -party_id $user_id -object_id $package_id -privilege "admin"]
@@ -84,6 +105,12 @@ db_multirow -extend { edit_response_url view_url edit_url assessment_url status_
 
     set edit_url [export_vars -base ${base_url}asm-admin/assessment-form { assessment_id }]
     set results_url [export_vars -base ${base_url}sessions { assessment_id }]
+
+    if {(![empty_string_p $start_time] && $start_time > $cur_time) || (![empty_string_p $end_time] && $end_time < $cur_time)} {
+	set over_p 1
+    } else {
+	set over_p 0
+    }
 }
 
 if { $community_id ne "" } {

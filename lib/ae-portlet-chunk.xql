@@ -7,10 +7,15 @@
 	       cf.package_id, p.instance_name as community_name,
 	       sc.node_id as comm_node_id, sa.node_id as as_node_id,
 	       s.session_id, s.completed_datetime, a.anonymous_p, 
-	       a.assessment_id as assessment_rev_id
-	from as_assessments a 
+	       a.assessment_id as assessment_rev_id,
+	       to_char(a.start_time, 'YYYY-MM-DD HH24:MI:SS') as start_time,
+	       to_char(a.end_time, 'YYYY-MM-DD HH24:MI:SS') as end_time,
+	       to_char(now(), 'YYYY-MM-DD HH24:MI:SS') as cur_time
+	from as_assessmentsi a 
 	left join as_sessions s
-	on (a.assessment_id = s.assessment_id
+	on (a.item_id = (select item_id
+			 from cr_revisions 
+			 where revision_id = s.assessment_id)
 	    and s.subject_id = :user_id
 	    and not s.subject_id in (select grantee_id 
 		 		     from acs_permissions_all 

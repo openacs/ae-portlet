@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<message_catalog package_key="ae-portlet" package_version="0.2d2" locale="en_US" charset="ISO-8859-1">
+<message_catalog package_key="ae-portlet" package_version="0.2d3" locale="en_US" charset="ISO-8859-1">
 
   <msg key="ae_admin">Course Evaluation Admin</msg>
   <msg key="Anonymous">Anonymous?</msg>
@@ -11,10 +11,12 @@
   <msg key="lt_No_evaluations_presen">No evaluations presently available</msg>
   <msg key="lt_No_unpublished_evalua">No unpublished evaluations</msg>
   <msg key="lt_NOTE_This_is_an_admin">#NOTE: This is an admin only section for unpublished evaluations</msg>
+  <msg key="lt_Sorry_this_evaluation">Sorry, this evaluation is over</msg>
   <msg key="New_Evaluation">New Evaluation</msg>
   <msg key="Publish">Publish</msg>
   <msg key="Results">Results</msg>
   <msg key="Take_Evaluation">Take Evaluation</msg>
+  <msg key="Test_Evaluation">Test Evaluation</msg>
   <msg key="title">Title</msg>
   <msg key="Unpublish">Unpublish</msg>
   <msg key="view_results">Results</msg>
