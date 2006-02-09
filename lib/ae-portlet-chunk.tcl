@@ -62,7 +62,7 @@ template::list::create \
 		<a href="@assessments.assessment_url;noquote@">#ae-portlet.Finish_Evaluation#</a>
 		</if>
 		<else>
-		<a href="@assessments.edit_response_url;noquote@"><img border=0 src=/resources/Edit16.gif> #ae-portlet.Edit_Your_Response#</a> | <a href="@assessments.view_url;noquote@"><img border=0 src=/resources/Zoom16.gif> #ae-portlet.View_Your_Response#</a>
+		<a href="@assessments.view_url;noquote@"><img border=0 src=/resources/Zoom16.gif> #ae-portlet.View_Your_Response#</a>
 		</else>
 
 		</if>
