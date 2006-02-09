@@ -68,13 +68,11 @@ template::list::create \
 		</if>
 		<else>
 		
-		<if @assessments.package_admin_p@ ne 1>
 		<if @assessments.over_p@>
 		[_ ae-portlet.lt_Sorry_this_evaluation]
-		</if>
-		<else>
+		<if @assessments.package_admin_p@ eq 1>
 		<a href="@assessments.assessment_url;noquote@">#ae-portlet.Take_Evaluation#</a>
-		</else>
+                </if>
 		</if>
 		<else>
 		<a href="@assessments.assessment_url;noquote@">[_ ae-portlet.Test_Evaluation]</a>
@@ -103,7 +101,7 @@ db_multirow -extend { edit_response_url view_url edit_url assessment_url status_
     set status_url [export_vars -base ${base_url}asm-admin/toggle-status { assessment_id {return_url [ad_return_url]} }]
     set anonymous_url [export_vars -base ${base_url}asm-admin/toggle-anonymous { {assessment_id $assessment_rev_id} {return_url [ad_return_url]} }]
 
-    set edit_url [export_vars -base ${base_url}asm-admin/assessment-form { assessment_id }]
+    set edit_url [export_vars -base ${base_url}asm-admin/one-a { assessment_id }]
     set results_url [export_vars -base ${base_url}sessions { assessment_id }]
 
     if {(![empty_string_p $start_time] && $start_time > $cur_time) || (![empty_string_p $end_time] && $end_time < $cur_time)} {
