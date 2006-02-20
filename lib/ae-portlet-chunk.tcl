@@ -29,7 +29,7 @@ if { $community_id eq "" } {
     set groupby_list {
 	label "[_ ae-portlet.Class]"
 	type multivar
-	values { { "[_ ae-portlet.Class]" { {groupby community_name} } } }
+	values { { "" { {groupby community_name} } } }
     }
 } else {
     set groupby_list [list]
@@ -42,6 +42,10 @@ template::list::create \
     -html { width 100% } \
     -no_data "#ae-portlet.lt_No_evaluations_presen#" \
     -elements {
+	community_name {
+	    hide_p 1
+	    link_url_col community_name_link
+	}
 	title {
 	    label ""
 	    display_template {
@@ -68,11 +72,13 @@ template::list::create \
 		</if>
 		<else>
 		
+		<if @assessments.package_admin_p@ ne 1>
 		<if @assessments.over_p@>
 		[_ ae-portlet.lt_Sorry_this_evaluation]
-		<if @assessments.package_admin_p@ eq 1>
-		<a href="@assessments.assessment_url;noquote@">#ae-portlet.Take_Evaluation#</a>
-                </if>
+		</if>
+		<else>
+		<a href="@assessments.assessment_url;noquote@">\#ae-portlet.Take_Evaluation\#</a>
+		</else>
 		</if>
 		<else>
 		<a href="@assessments.assessment_url;noquote@">[_ ae-portlet.Test_Evaluation]</a>
@@ -90,7 +96,7 @@ template::list::create \
     -groupby $groupby_list
 
 set status_clause "and not ci.live_revision is null"
-db_multirow -extend { edit_response_url view_url edit_url assessment_url status_url anonymous_url edit_url results_url package_admin_p over_p } assessments answered_assessments {} {
+db_multirow -extend { edit_response_url view_url edit_url assessment_url status_url anonymous_url edit_url results_url package_admin_p over_p community_name_link } assessments answered_assessments {} {
 
     set base_url [site_node::get_url_from_object_id -object_id $package_id]
     set package_admin_p [permission::permission_p -party_id $user_id -object_id $package_id -privilege "admin"]
@@ -109,6 +115,8 @@ db_multirow -extend { edit_response_url view_url edit_url assessment_url status_
     } else {
 	set over_p 0
     }
+
+    set community_name_link [site_node::get_url -node_id $comm_node_id]
 }
 
 if { $community_id ne "" } {
